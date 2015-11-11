@@ -30,3 +30,4 @@ f4_lamec_xbee configuration\xbee.o: ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4x
 f4_lamec_xbee configuration\xbee.o: ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd.h
 f4_lamec_xbee configuration\xbee.o: ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_usb.h
 f4_lamec_xbee configuration\xbee.o: ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd_ex.h
+f4_lamec_xbee configuration\xbee.o: ..\UART\UART_Handler.h

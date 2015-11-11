@@ -373,6 +373,15 @@ Section Cross References
     uart_handler.o(i.Lib_UART_Transmit_IT) refers to stm32f4xx_hal_uart.o(i.HAL_UART_Transmit_IT) for HAL_UART_Transmit_IT
     uart_handler.o(i.Lib_UART_Transmit_wRetry_IT) refers to uart_handler.o(i.Lib_UART_Transmit_IT) for Lib_UART_Transmit_IT
     uart_handler.o(i.Lib_UART_Transmit_wRetry_IT) refers to uart_handler.o(i.Lib_GetUARTOutBufByte) for Lib_GetUARTOutBufByte
+    xbee.o(i.FormatFrame) refers to uart_handler.o(i.Lib_SetUARTOutBufBytes) for Lib_SetUARTOutBufBytes
+    xbee.o(i.FormatFrame) refers to uart_handler.o(i.Lib_UART_Transmit_wRetry_IT) for Lib_UART_Transmit_wRetry_IT
+    xbee.o(i.FormatFrame) refers to main.o(.bss) for huart2
+    xbee.o(i.XBee_AtCommand) refers to uart_handler.o(i.Lib_SetUARTOutBufBytes) for Lib_SetUARTOutBufBytes
+    xbee.o(i.XBee_AtCommand) refers to uart_handler.o(i.Lib_UART_Transmit_wRetry_IT) for Lib_UART_Transmit_wRetry_IT
+    xbee.o(i.XBee_AtCommand) refers to main.o(.bss) for huart2
+    xbee.o(i.XBee_ZigBeeTransmitRequest) refers to uart_handler.o(i.Lib_SetUARTOutBufBytes) for Lib_SetUARTOutBufBytes
+    xbee.o(i.XBee_ZigBeeTransmitRequest) refers to uart_handler.o(i.Lib_UART_Transmit_wRetry_IT) for Lib_UART_Transmit_wRetry_IT
+    xbee.o(i.XBee_ZigBeeTransmitRequest) refers to main.o(.bss) for huart2
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry10a.o(.ARM.Collect$$$$0000000D) for __rt_final_cpp
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry11a.o(.ARM.Collect$$$$0000000F) for __rt_final_exit
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry7b.o(.ARM.Collect$$$$00000008) for _main_clock
@@ -773,8 +782,13 @@ Removing Unused input sections from the image.
     Removing xbee.o(.rev16_text), (4 bytes).
     Removing xbee.o(.revsh_text), (4 bytes).
     Removing xbee.o(.rrx_text), (6 bytes).
+    Removing xbee.o(i.FormatFrame), (84 bytes).
+    Removing xbee.o(i.XBee_AtCommand), (64 bytes).
+    Removing xbee.o(i.XBee_AtResponse), (42 bytes).
+    Removing xbee.o(i.XBee_ZigBeeTransmitRequest), (116 bytes).
+    Removing xbee.o(i.XBee_ZigbeeExpRXInd), (66 bytes).
 
-347 unused section(s) (total 26021 bytes) removed from the image.
+352 unused section(s) (total 26393 bytes) removed from the image.
 
 ==============================================================================
 
@@ -1252,17 +1266,17 @@ Memory Map of the image
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x08000000   0x00000194   Data   RO         2716    RESET               startup_stm32f401xc.o
-    0x08000194   0x00000000   Code   RO         2849  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x08000194   0x00000004   Code   RO         2884    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
-    0x08000198   0x00000004   Code   RO         2887    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x0800019c   0x00000000   Code   RO         2889    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x0800019c   0x00000000   Code   RO         2891    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x0800019c   0x00000008   Code   RO         2892    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x080001a4   0x00000000   Code   RO         2894    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
-    0x080001a4   0x00000000   Code   RO         2896    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
-    0x080001a4   0x00000004   Code   RO         2885    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x08000194   0x00000000   Code   RO         2880  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x08000194   0x00000004   Code   RO         2915    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x08000198   0x00000004   Code   RO         2918    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x0800019c   0x00000000   Code   RO         2920    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x0800019c   0x00000000   Code   RO         2922    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x0800019c   0x00000008   Code   RO         2923    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x080001a4   0x00000000   Code   RO         2925    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x080001a4   0x00000000   Code   RO         2927    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x080001a4   0x00000004   Code   RO         2916    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
     0x080001a8   0x00000024   Code   RO         2717    .text               startup_stm32f401xc.o
-    0x080001cc   0x00000024   Code   RO         2900    .text               mc_w.l(init.o)
+    0x080001cc   0x00000024   Code   RO         2931    .text               mc_w.l(init.o)
     0x080001f0   0x00000188   Code   RO         1649    i.HAL_GPIO_Init     stm32f4xx_hal_gpio.o
     0x08000378   0x0000000c   Code   RO         2117    i.HAL_GetTick       stm32f4xx_hal.o
     0x08000384   0x00000010   Code   RO         2118    i.HAL_IncTick       stm32f4xx_hal.o
@@ -1383,13 +1397,13 @@ Memory Map of the image
     0x0800264a   0x00000020   Code   RO         1281    i.USB_ReadPacket    stm32f4xx_ll_usb.o
     0x0800266a   0x00000022   Code   RO         1284    i.USB_SetDevAddress  stm32f4xx_ll_usb.o
     0x0800268c   0x00000028   Code   RO         1288    i.USB_WritePacket   stm32f4xx_ll_usb.o
-    0x080026b4   0x0000000e   Code   RO         2904    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x080026c2   0x00000002   Code   RO         2905    i.__scatterload_null  mc_w.l(handlers.o)
-    0x080026c4   0x0000000e   Code   RO         2906    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x080026b4   0x0000000e   Code   RO         2935    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x080026c2   0x00000002   Code   RO         2936    i.__scatterload_null  mc_w.l(handlers.o)
+    0x080026c4   0x0000000e   Code   RO         2937    i.__scatterload_zeroinit  mc_w.l(handlers.o)
     0x080026d2   0x00000002   PAD
     0x080026d4   0x000000a4   Code   RO         2290    i.main              main.o
     0x08002778   0x00000010   Data   RO         1075    .constdata          stm32f4xx_hal_rcc.o
-    0x08002788   0x00000020   Data   RO         2902    Region$$Table       anon$$obj.o
+    0x08002788   0x00000020   Data   RO         2933    Region$$Table       anon$$obj.o
 
 
     Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00000b08, Max: 0x00010000, ABSOLUTE)
@@ -1418,27 +1432,27 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       336         38          0          1        314       2768   main.o
-        36          8        404          0       1024        948   startup_stm32f401xc.o
-       114         16          0          4          0       3722   stm32f4xx_hal.o
-       228         14          0          0          0      32061   stm32f4xx_hal_cortex.o
-       392         34          0          0          0       1884   stm32f4xx_hal_gpio.o
-       150         16          0          0          0       1625   stm32f4xx_hal_msp.o
-      1622          0          0          0          0       8267   stm32f4xx_hal_pcd.o
-      1604         70         16          0          0       6315   stm32f4xx_hal_rcc.o
-      1222         10          0          0          0       7694   stm32f4xx_hal_uart.o
-        38         12          0          0          0       1490   stm32f4xx_it.o
-      1588         20          0          0          0      13968   stm32f4xx_ll_usb.o
-        84         18          0          4          0       1413   system_stm32f4xx.o
-       308         44          0         16        500       6135   uart_handler.o
-         0          0          0          0          0     216716   usbd_cdc.o
-       302          4          0          0        948      10967   usbd_conf.o
-       558          0          0          0          0      10056   usbd_core.o
-       916         30          0          1          0       7227   usbd_ctlreq.o
-       102          0          0          0          0       3888   usbd_ioreq.o
+       336         38          0          1        314       2636   main.o
+        36          8        404          0       1024        920   startup_stm32f401xc.o
+       114         16          0          4          0       3574   stm32f4xx_hal.o
+       228         14          0          0          0      31833   stm32f4xx_hal_cortex.o
+       392         34          0          0          0       1828   stm32f4xx_hal_gpio.o
+       150         16          0          0          0       1545   stm32f4xx_hal_msp.o
+      1622          0          0          0          0       8027   stm32f4xx_hal_pcd.o
+      1604         70         16          0          0       6115   stm32f4xx_hal_rcc.o
+      1222         10          0          0          0       7438   stm32f4xx_hal_uart.o
+        38         12          0          0          0       1410   stm32f4xx_it.o
+      1588         20          0          0          0      13472   stm32f4xx_ll_usb.o
+        84         18          0          4          0       1337   system_stm32f4xx.o
+       308         44          0         16        500       5863   uart_handler.o
+         0          0          0          0          0     216460   usbd_cdc.o
+       302          4          0          0        948      10439   usbd_conf.o
+       558          0          0          0          0       9660   usbd_core.o
+       916         30          0          1          0       7015   usbd_ctlreq.o
+       102          0          0          0          0       3736   usbd_ioreq.o
 
     ----------------------------------------------------------------------
-      9612        334        452         32       2792     337144   Object Totals
+      9612        334        452         32       2792     333308   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         12          0          0          6          6          0   (incl. Padding)
 
@@ -1477,8 +1491,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      9700        350        452         32       2792     326516   Grand Totals
-      9700        350        452         32       2792     326516   ELF Image Totals
+      9700        350        452         32       2792     322680   Grand Totals
+      9700        350        452         32       2792     322680   ELF Image Totals
       9700        350        452         32          0          0   ROM Totals
 
 ==============================================================================
