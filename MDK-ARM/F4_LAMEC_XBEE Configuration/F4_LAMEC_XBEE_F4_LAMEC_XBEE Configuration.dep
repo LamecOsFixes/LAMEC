@@ -670,7 +670,7 @@ I (..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h)(0x55A77C1C
 I (..\Inc\usbd_desc.h)(0x55FB2B4D)
 I (..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc\usbd_cdc.h)(0x55A77C1C)
 I (..\Inc\usbd_cdc_if.h)(0x55FB2B4D)
-F (..\Src\main.c)(0x56413C94)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I..\Inc -I..\Drivers\STM32F4xx_HAL_Driver\Inc -I..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy -I..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc -I..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc -I..\Drivers\CMSIS\Include -I..\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I..\UART -I..\XBee --C99-I C:\Users\fabioborges\Documents\LAMEC\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32F401xC -DUSE_HAL_DRIVER -DSTM32F401xC-o "f4_lamec_xbee configuration\main.o" --omf_browse "f4_lamec_xbee configuration\main.crf" --depend "f4_lamec_xbee configuration\main.d")
+F (..\Src\main.c)(0x5643E0EF)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I..\Inc -I..\Drivers\STM32F4xx_HAL_Driver\Inc -I..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy -I..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc -I..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc -I..\Drivers\CMSIS\Include -I..\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I..\UART -I..\XBee --C99-I C:\Users\fabioborges\Documents\LAMEC\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32F401xC -DUSE_HAL_DRIVER -DSTM32F401xC-o "f4_lamec_xbee configuration\main.o" --omf_browse "f4_lamec_xbee configuration\main.crf" --depend "f4_lamec_xbee configuration\main.d")
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x55A77C11)
 I (..\Inc\stm32f4xx_hal_conf.h)(0x55FB2B4D)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h)(0x55A77C11)
@@ -938,7 +938,7 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x55A77C11)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd.h)(0x55A77C11)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_usb.h)(0x55A77C12)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd_ex.h)(0x55A77C11)
-F (..\XBee\XBee.c)(0x564399B0)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I..\Inc -I..\Drivers\STM32F4xx_HAL_Driver\Inc -I..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy -I..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc -I..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc -I..\Drivers\CMSIS\Include -I..\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I..\UART -I..\XBee --C99-I C:\Users\fabioborges\Documents\LAMEC\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32F401xC -DUSE_HAL_DRIVER -DSTM32F401xC-o "f4_lamec_xbee configuration\xbee.o" --omf_browse "f4_lamec_xbee configuration\xbee.crf" --depend "f4_lamec_xbee configuration\xbee.d")
+F (..\XBee\XBee.c)(0x5643A01B)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I..\Inc -I..\Drivers\STM32F4xx_HAL_Driver\Inc -I..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy -I..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc -I..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc -I..\Drivers\CMSIS\Include -I..\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I..\UART -I..\XBee --C99-I C:\Users\fabioborges\Documents\LAMEC\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32F401xC -DUSE_HAL_DRIVER -DSTM32F401xC-o "f4_lamec_xbee configuration\xbee.o" --omf_browse "f4_lamec_xbee configuration\xbee.crf" --depend "f4_lamec_xbee configuration\xbee.d")
 I (..\XBee\XBee.h)(0x564399CC)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x55A77C11)
 I (..\Inc\stm32f4xx_hal_conf.h)(0x55FB2B4D)
@@ -969,4 +969,37 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x55A77C11)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd.h)(0x55A77C11)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_usb.h)(0x55A77C12)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd_ex.h)(0x55A77C11)
+I (..\UART\UART_Handler.h)(0x56413F8C)
+F (..\XBee\protocolXbee.c)(0x5643ECC9)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I..\Inc -I..\Drivers\STM32F4xx_HAL_Driver\Inc -I..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy -I..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc -I..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc -I..\Drivers\CMSIS\Include -I..\Drivers\CMSIS\Device\ST\STM32F4xx\Include -I..\UART -I..\XBee --C99-I C:\Users\fabioborges\Documents\LAMEC\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="515" -DSTM32F401xC -DUSE_HAL_DRIVER -DSTM32F401xC-o "f4_lamec_xbee configuration\protocolxbee.o" --omf_browse "f4_lamec_xbee configuration\protocolxbee.crf" --depend "f4_lamec_xbee configuration\protocolxbee.d")
+I (..\XBee\protocolXbee.h)(0x5643E136)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x55A77C11)
+I (..\Inc\stm32f4xx_hal_conf.h)(0x55FB2B4D)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h)(0x55A77C11)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h)(0x55A77C11)
+I (..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x55A77BFE)
+I (..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f401xc.h)(0x55A77BFD)
+I (..\Drivers\CMSIS\Include\core_cm4.h)(0x55A77C0D)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C2A828)
+I (..\Drivers\CMSIS\Include\core_cmInstr.h)(0x55A77C0D)
+I (..\Drivers\CMSIS\Include\core_cmFunc.h)(0x55A77C0D)
+I (..\Drivers\CMSIS\Include\core_cmSimd.h)(0x55A77C0D)
+I (..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x55A77BFE)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy/stm32_hal_legacy.h)(0x55A77C11)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x54C2A828)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc_ex.h)(0x55A77C11)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio.h)(0x55A77C11)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio_ex.h)(0x55A77C11)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_dma.h)(0x55A77C11)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_dma_ex.h)(0x55A77C11)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_cortex.h)(0x55A77C11)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash.h)(0x55A77C11)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ex.h)(0x55A77C11)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ramfunc.h)(0x55A77C11)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr.h)(0x55A77C11)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h)(0x55A77C11)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x55A77C11)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd.h)(0x55A77C11)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_usb.h)(0x55A77C12)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd_ex.h)(0x55A77C11)
+I (..\XBee\XBee.h)(0x564399CC)
 I (..\UART\UART_Handler.h)(0x56413F8C)

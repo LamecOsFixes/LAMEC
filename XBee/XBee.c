@@ -54,6 +54,7 @@ S_XBee_ZigbeeExplicitRXIndicator * XBee_ZigbeeExpRXInd (uint8_t * frame, uint8_t
 	for (int i = 0 ; i < size-16 ; i++){
 		zigbeeRx->Data[i] = frame[15+i];
 	}
+	zigbeeRx->SizeData = size-16;
 	
 	return zigbeeRx;
 }

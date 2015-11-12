@@ -75,8 +75,6 @@ int main(void)
 	#endif
 	MX_USART2_UART_Init();
   
-	
- 
   /* Infinite loop */
   while (1)
   {
