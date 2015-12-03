@@ -19,6 +19,8 @@
 "f4_lamec_xbee configuration\stm32f4xx_hal_flash_ramfunc.o"
 "f4_lamec_xbee configuration\stm32f4xx_hal_dma.o"
 "f4_lamec_xbee configuration\stm32f4xx_hal.o"
+"f4_lamec_xbee configuration\stm32f4xx_hal_tim.o"
+"f4_lamec_xbee configuration\stm32f4xx_hal_tim_ex.o"
 "f4_lamec_xbee configuration\usb_device.o"
 "f4_lamec_xbee configuration\main.o"
 "f4_lamec_xbee configuration\usbd_desc.o"

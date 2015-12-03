@@ -22,15 +22,20 @@ Dialog DLL:      TCM.DLL V1.14.5.0
  
 <h2>Project:</h2>
 C:\Users\fabioborges\Documents\LAMEC\MDK-ARM\F4_LAMEC_XBEE.uvprojx
-Project File Date:  11/12/2015
+Project File Date:  11/17/2015
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'F4_LAMEC_XBEE Configuration'
-compiling protocolXbee.c...
+compiling main.c...
+..\Src\main.c(68): warning:  #177-D: variable "send_char" was declared but never referenced
+        uint8_t send_char = 's';
+..\Src\main.c(202): warning:  #177-D: function "MX_USART1_UART_Init" was declared but never referenced
+  void MX_USART1_UART_Init(void)
+..\Src\main.c: 2 warnings, 0 errors
 linking...
-Program Size: Code=9700 RO-data=452 RW-data=32 ZI-data=2792  
-"F4_LAMEC_XBEE Configuration\F4_LAMEC_XBEE Configuration.axf" - 0 Error(s), 0 Warning(s).
+Program Size: Code=10116 RO-data=452 RW-data=24 ZI-data=2848  
+"F4_LAMEC_XBEE Configuration\F4_LAMEC_XBEE Configuration.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   C:\Users\fabioborges\Documents\LAMEC\MDK-ARM\RTE

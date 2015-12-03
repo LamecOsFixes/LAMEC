@@ -33,7 +33,7 @@
 /* Includes ------------------------------------------------------------------*/
 
 //#define COORDINATOR
-
+//PD12 13 14 15
 #include "stm32f4xx_hal.h"
 #include "UART_Handler.h"
 
@@ -47,16 +47,21 @@
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
+TIM_HandleTypeDef  TimHandle;
+
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
+static void MX_TIM3_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
 uint8_t buffer_cnt;
 uint8_t buffer[250];
+
+uint8_t tim_mult=10;	//100ms x tim_mult
 
 int main(void)
 {
@@ -74,6 +79,8 @@ int main(void)
   MX_USB_DEVICE_Init();
 	#endif
 	MX_USART2_UART_Init();
+	
+	MX_TIM3_Init();
   
   /* Infinite loop */
   while (1)
@@ -81,21 +88,80 @@ int main(void)
 			if(HAL_UART_Receive_IT(&huart2,buffer,1)==HAL_OK)
 			{} 
 			else{
-				if(Lib_GetUARTInBufByte(&send_char)){
-					Lib_SetUARTOutBufBytes(&send_char, 1);
-				
-					Lib_UART_Transmit_wRetry_IT(&huart2);
-				}
+//				if(Lib_GetUARTInBufByte(&send_char)){
+//					Lib_SetUARTOutBufBytes(&send_char, 1);
+//				
+//					Lib_UART_Transmit_wRetry_IT(&huart2);
+//				}
 			}
   }
 }
 
 
+
+/* TIM3 init function */
+void MX_TIM3_Init(void){
+  /* Compute the prescaler value to have TIM3 counter clock equal to 10 KHz */
+	uint32_t uwPrescalerValue = (uint32_t) (SystemCoreClock / 10000) - 1;
+  
+  /* Set TIMx instance */
+  TimHandle.Instance = TIM3;
+   
+  /* Initialize TIM3 peripheral as follows:
+       + Period = 10000 - 1
+       + Prescaler = (SystemCoreClock/10000) - 1
+       + ClockDivision = 0
+       + Counter direction = Up
+     */
+  TimHandle.Init.Period = (1000*tim_mult) - 1;
+  TimHandle.Init.Prescaler = uwPrescalerValue;
+  TimHandle.Init.ClockDivision = 0;
+  TimHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
+  HAL_TIM_Base_Init(&TimHandle);
+
+  /*##-2- Start the TIM Base generation in interrupt mode ####################*/
+  /* Start Channel1 */
+  HAL_TIM_Base_Start_IT(&TimHandle);
+	
+	//TIM3->CR1&=~0x00000001;	//Disable Counter TIM3
+	//TIM3->CR1|=0x00000001;	//Enable Counter TIM3
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+		
+	HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_12);
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+
+//	//Green Button
+//	if( GPIO_Pin == GPIO_PIN_9)
+//	{
+//			if(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_9)==GPIO_PIN_SET)
+//			{
+//					TIM3->CR1|=0x00000001;	//Enable Counter TIM3
+//					button_state |= 0x01;
+//					flag1_tim=1;
+//			} else 
+//			{
+//					flag1_tim=0;
+//			}
+//	}else if(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_9)==GPIO_PIN_SET){
+//			button_state |= 0x02;
+//	}
+//	
+
+}
+
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
+	if(huart->Instance==USART2)
+  {
 	 buffer_cnt+=huart->RxXferSize;
    Lib_UART_Receive_IT(buffer,buffer_cnt);
 	 buffer_cnt=0;
+	}
 }
 /** System Clock Configuration
 */
@@ -179,6 +245,7 @@ void MX_GPIO_Init(void)
   /* GPIO Ports Clock Enable */
   __GPIOH_CLK_ENABLE();
   __GPIOA_CLK_ENABLE();
+	__GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin : PA1 */
   GPIO_InitStruct.Pin = GPIO_PIN_1;
@@ -186,6 +253,12 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+
+  GPIO_InitStruct.Pin = GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15 ;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 }
 
 /* USER CODE BEGIN 4 */

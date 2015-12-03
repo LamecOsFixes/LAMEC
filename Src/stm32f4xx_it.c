@@ -42,7 +42,7 @@
 /* External variables --------------------------------------------------------*/
 extern PCD_HandleTypeDef hpcd_USB_OTG_FS;
 extern UART_HandleTypeDef huart2;
-
+extern TIM_HandleTypeDef  TimHandle;
 /******************************************************************************/
 /*            Cortex-M4 Processor Interruption and Exception Handlers         */ 
 /******************************************************************************/
@@ -91,7 +91,10 @@ void OTG_FS_IRQHandler(void)
   /* USER CODE END OTG_FS_IRQn 1 */
 }
 
-/* USER CODE BEGIN 1 */
+void TIM3_IRQHandler(void)
+{
 
-/* USER CODE END 1 */
+  HAL_TIM_IRQHandler(&TimHandle);
+
+}
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

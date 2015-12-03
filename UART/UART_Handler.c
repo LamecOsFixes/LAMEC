@@ -1,20 +1,46 @@
+/**
+		\file 	UART_Handler.c
+		\brief	UART interface functions.
+	*/
+	
+/**
+		\addtogroup UART UART Handler
+		\{
+	*/
 #include "UART_Handler.h"
 
-/************Constantes****************/
-const uint8_t UARTINBUFSIZE  = 250;
-const uint8_t UARTOUTBUFSIZE = 250;
-/**************Variaveis***************/
-uint8_t 	UARTInBuf[UARTINBUFSIZE];		//Buffer recepçao
-uint8_t 	UARTOutBuf[UARTOUTBUFSIZE];	//Buffer envio
-uint32_t	UARTInBufNumbytes=0;
-uint32_t	UARTOutBufNumbytes =0;
 
+/************Constantes****************/
+/// \brief Tamanho alocado para buffer UARTInBuf.
+const uint8_t UARTINBUFSIZE  = 250;
+
+/// \brief Tamanho alocado para buffer UARTOutBuf.
+const uint8_t UARTOUTBUFSIZE = 250;
+
+/**************Variaveis***************/
+/// \brief Buffer recepçao
+uint8_t 	UARTInBuf[UARTINBUFSIZE];		
+
+/// \brief Buffer envio
+uint8_t 	UARTOutBuf[UARTOUTBUFSIZE];	
+
+//uint32_t	UARTInBufNumbytes=0;
+//uint32_t	UARTOutBufNumbytes =0;
+
+/// \brief Apontador para proxima leitura do buffer UARTInBuf.
 uint16_t		UARTInBufNextRead=0;
+
+/// \brief Apontador para proxima escrita do buffer UARTInBuf.
 uint16_t   	UARTInBufNextWrite=0;
+
+/// \brief Apontador para proxima leitura do buffer UARTOutBuf.
 uint16_t		UARTOutBufNextRead=0;
+
+/// \brief Apontador para proxima escrita do buffer UARTOutBuf.
 uint16_t		UARTOutBufNextWrite=0;
 
 //uint8_t sendSuccessful = 1;
+
 /***************Funçoes****************/
 ///////////////BUFFER IN/////////////////
 /**
@@ -106,7 +132,7 @@ void Lib_SetUARTOutBufBytes(unsigned char *msg, char numbytes)
     }else { 
 			UARTOutBufNextWrite++;
 		}
-    UARTOutBufNumbytes++;   // increase numbytes by 1
+    //UARTOutBufNumbytes++;   // increase numbytes by 1
   }
 }
 
@@ -126,7 +152,7 @@ void Lib_UART_Receive_IT (uint8_t * data, uint8_t size)
 	for( i=0 ; i< size	; i++)
 	{
 		UARTInBuf[UARTInBufNextWrite] = data[i];
-    UARTInBufNumbytes++;
+//    UARTInBufNumbytes++;
 
 		if(UARTInBufNextWrite == UARTINBUFSIZE - 1) 
        UARTInBufNextWrite = 0;  // wrap-around
@@ -169,4 +195,6 @@ uint8_t Lib_UART_Transmit_wRetry_IT(UART_HandleTypeDef *huart)
 	}
 	return 1;
 }
+
+/// \}
 
