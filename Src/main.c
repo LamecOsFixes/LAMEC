@@ -35,7 +35,9 @@
 //#define COORDINATOR
 //PD12 13 14 15
 #include "stm32f4xx_hal.h"
-#include "UART_Handler.h"
+//#include "UART_Handler.h"
+//#include "XBee.h"
+#include "protocolXbee.h"
 
 
 #ifdef COORDINATOR
@@ -59,9 +61,9 @@ static void MX_TIM3_Init(void);
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
 uint8_t buffer_cnt;
-uint8_t buffer[250];
+uint8_t bufferRec[250];
 
-uint8_t tim_mult=10;	//100ms x tim_mult
+uint8_t tim_mult=20;	//100ms x tim_mult
 
 int main(void)
 {
@@ -85,15 +87,19 @@ int main(void)
   /* Infinite loop */
   while (1)
   {
-			if(HAL_UART_Receive_IT(&huart2,buffer,1)==HAL_OK)
-			{} 
+			if(HAL_UART_Receive_IT(&huart2,bufferRec,1)==HAL_OK)
+			{
+				HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_13);
+			} 
 			else{
+				Run_Frame();
 //				if(Lib_GetUARTInBufByte(&send_char)){
 //					Lib_SetUARTOutBufBytes(&send_char, 1);
 //				
 //					Lib_UART_Transmit_wRetry_IT(&huart2);
 //				}
 			}
+			
   }
 }
 
@@ -129,7 +135,20 @@ void MX_TIM3_Init(void){
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-		
+//	uint8_t bufferMAC[8], bufferDst16[2];
+//	for(int i=0; i<8;i++){
+//		bufferMAC[i]=0x00;
+//	}
+//	bufferDst16[0]=0xFF;
+//	bufferDst16[1]=0xFE;
+//	XBee_ZigBeeTransmitRequest(0x01, &bufferMAC[0], bufferDst16 , 0x00 , 0x00 , "teste", 6);
+	
+//	XBee_AtCommand(0x01, Cmd_DB, bufferMAC , 0);
+//	uint8_t send_char = 's';
+//	
+//	Lib_SetUARTOutBufBytes(&send_char, 1);
+//	Lib_UART_Transmit_wRetry_IT(&huart2);
+
 	HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_12);
 }
 
@@ -159,7 +178,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	if(huart->Instance==USART2)
   {
 	 buffer_cnt+=huart->RxXferSize;
-   Lib_UART_Receive_IT(buffer,buffer_cnt);
+   Lib_UART_Receive_IT(bufferRec,buffer_cnt);
 	 buffer_cnt=0;
 	}
 }

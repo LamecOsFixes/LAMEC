@@ -1,9 +1,11 @@
 #include "XBee.h"
 
 //S_XBee_ATResponse ATResponseStruct;
-S_XBee_ATResponse * ATResp;
-S_XBee_ZigbeeExplicitRXIndicator * zigbeeRx;
+S_XBee_ATResponse ATResp;
+S_XBee_RemoteATResponse		RemoteATResponse;
+S_XBee_ZigbeeExplicitRXIndicator zigbeeRx;
 	
+uint8_t FormatFrame(uint8_t * data, uint16_t size);
 //////////////Specific/////////	
 /**
   * @brief  Calcula valor percentual de RSSI a partir de 
@@ -11,7 +13,7 @@ S_XBee_ZigbeeExplicitRXIndicator * zigbeeRx;
   * @param  frameRssi: valor de rssi recebido na trama.
 	* @retval *resultValue: valor percentual de RSSI com casa decimal na forma inteira (46,8% = 468)
   * @return 1 - sucesso ; 0 - erro
-	* @todo		FAZER E TESTAR
+	* @todo		!!!!!!FAZER E TESTAR!!!!!!
   */
 uint8_t calcRSSI(uint8_t frameRssi, uint16_t *resultValue)
 {
@@ -36,17 +38,43 @@ uint8_t calcRSSI(uint8_t frameRssi, uint16_t *resultValue)
   */
 S_XBee_ATResponse * XBee_AtResponse(uint8_t * frame , uint8_t size)
 {
-		ATResp->FrameId   = frame[1];
-		ATResp->ATCommand = frame[2];
-		ATResp->ATCommand = (ATResp->ATCommand<<8) | frame[3];
-		ATResp->status    = frame[4];
-		ATResp->SizeParams= size - 5;
+		ATResp.FrameId   = frame[0];
+		ATResp.ATCommand = frame[1];
+		ATResp.ATCommand = (ATResp.ATCommand<<8) | frame[2];
+		ATResp.status    = frame[3];
+		ATResp.SizeParams= size - 5;
 		
 		for (int i = 0 ; i < size-5 ; i++){
-			ATResp->Params[i] = frame[i+5];
+			ATResp.Params[i] = frame[i+4];
 		}
 		
-		return ATResp;
+		return &ATResp;
+}
+
+/**
+  * @brief  Processa Remote AT Response
+  * @param  frame: trama recebida
+	* @param  size: tamanho da trama recebida
+  * @return Estrutura da trama recebida
+	* @note   Size inclui o identificador 0x97(AT Response)
+	* @todo		TESTAR
+  */
+S_XBee_RemoteATResponse * XBee_RemoteAtResponse(uint8_t * frame , uint8_t size)
+{
+		RemoteATResponse.FrameId   = frame[0];
+		for (int i = 0 ; i < 8 ; i++){
+			RemoteATResponse.Addr64[i] = frame[1+i];
+		}
+		RemoteATResponse.Addr16 = ((frame[9]<<8) | frame[10]);
+		RemoteATResponse.ATCommand = ((frame[11]<<8) | frame[12]);
+		RemoteATResponse.status = frame[13];
+		RemoteATResponse.SizeParams = size - 14;
+		
+		for (int i = 0 ; i < RemoteATResponse.SizeParams ; i++){
+			ATResp.Params[i] = frame[i+14];
+		}
+		
+		return &RemoteATResponse;
 }
 
 /**
@@ -60,24 +88,61 @@ S_XBee_ATResponse * XBee_AtResponse(uint8_t * frame , uint8_t size)
 S_XBee_ZigbeeExplicitRXIndicator * XBee_ZigbeeExpRXInd (uint8_t * frame, uint8_t size)
 {	
 	for (int i = 0 ; i < 8 ; i++){
-		zigbeeRx->SrcAddr64[i] = frame[i+1];
+		zigbeeRx.SrcAddr64[i] = frame[i];
 	}
-	zigbeeRx->SrcAddr16 = ((frame[8]<<8)|frame[9]);
-	zigbeeRx->SrcEndpoint = frame[10];
-	zigbeeRx->DstEndpoint = frame[11];
-	zigbeeRx->ClusterID = frame[12];
-	zigbeeRx->ProfileID = frame[13];
-	zigbeeRx->RcvOpt = frame[14];
-	for (int i = 0 ; i < size-16 ; i++){
-		zigbeeRx->Data[i] = frame[15+i];
+	zigbeeRx.SrcAddr16 = ((frame[8]<<8)|frame[9]);
+	zigbeeRx.SrcEndpoint = frame[10];
+	zigbeeRx.DstEndpoint = frame[11];
+	zigbeeRx.ClusterID = ((frame[12]<<8)|frame[13]);
+	zigbeeRx.ProfileID = ((frame[14]<<8)|frame[15]);
+	zigbeeRx.RcvOpt = frame[16];
+	for (int i = 0 ; i < size-17 ; i++){
+		zigbeeRx.Data[i] = frame[17+i];
 	}
-	zigbeeRx->SizeData = size-16;
+	zigbeeRx.SizeData = size-17;
 	
-	return zigbeeRx;
+	return &zigbeeRx;
 }
 
 
 /////////////////////SEND///////////////////////
+/**
+  * @brief  Entra em modo AT
+  * @return 1 - sucesso ; 0 - erro
+	*	@note Not tested
+  */
+uint8_t XBee_enterAtMode(){
+	uint8_t buffer[3];
+	
+	for (int i = 0 ; i < 3 ; i++){
+		buffer[i] = '+';
+	}
+	Lib_SetUARTOutBufBytes(buffer, 3);
+	Lib_UART_Transmit_wRetry_IT(&huart2);
+	
+	HAL_Delay(1100);
+	return 1;
+}
+
+/**
+  * @brief  Entra em modo AT
+  * @return 1 - sucesso ; 0 - erro
+  */
+uint8_t XBee_exitAtMode(){
+	uint8_t buffer[5];
+	
+	buffer[0] = 'A';
+	buffer[1] = 'T';
+	buffer[2] = 'C';
+	buffer[3] = 'N';
+	buffer[4] = '\r';
+
+	Lib_SetUARTOutBufBytes(buffer, 5);
+	Lib_UART_Transmit_wRetry_IT(&huart2);
+
+	return 1;
+}
+
 /**
   * @brief  Envia comando AT
   * @param  FrameID: valor FrameID
@@ -85,10 +150,12 @@ S_XBee_ZigbeeExplicitRXIndicator * XBee_ZigbeeExpRXInd (uint8_t * frame, uint8_t
 	* @param  param: buffer com parametros do comando AT
 	* @param  sizeParams: tamanho ocupado pelos parametros
   * @return 1 - sucesso ; 0 - erro
-	* @todo		TESTAR
+	*	@attencion	!!!!!NAO FUNCIONA!!!!!!
   */
 uint8_t XBee_AtCommand(uint8_t FrameID, uint16_t ATCommand, uint8_t * param , uint8_t sizeParams){
 	uint8_t buffer[128];
+	
+	XBee_enterAtMode();
 	
 	uint16_t totalSize = sizeParams + 4; //tamanho de parametros util mais 3 (0x08 , FrameID , ATCommand)
 	
@@ -101,11 +168,45 @@ uint8_t XBee_AtCommand(uint8_t FrameID, uint16_t ATCommand, uint8_t * param , ui
 		buffer[4+i] = param[i];
 	}
 	
-	Lib_SetUARTOutBufBytes(buffer, totalSize);
-	Lib_UART_Transmit_wRetry_IT(&huart2);
+	FormatFrame(buffer, totalSize);
+	XBee_exitAtMode();
 	return 1;
 }
 
+/**
+  * @brief  Envia comando AT remotamente
+  * @param  FrameID: valor FrameID
+	* @param  ATCommand: comando AT
+	* @param  param: buffer com parametros do comando AT
+	* @param  sizeParams: tamanho ocupado pelos parametros
+  * @return 1 - sucesso ; 0 - erro
+	*	@attencion	Not tested 
+  */
+uint8_t XBee_RemoteAtCommand(uint8_t FrameID, uint8_t * Addr64, uint16_t Addr16, uint8_t RemoteCmdOptions ,uint16_t ATCommand, uint8_t * param , uint8_t sizeParams){
+	uint8_t buffer[128];
+	
+	XBee_enterAtMode();
+	
+	uint16_t totalSize = sizeParams + 14; 
+	
+	buffer[0] = RemoteATComandRequest;
+	buffer[1] = FrameID;
+	for (int i = 0 ; i < 8 ; i++){
+		buffer[2+i] = Addr64[i];
+	}
+	buffer[10] = (Addr16 >> 8) & 0xFF;
+	buffer[11] = (Addr16 & 0xFF);
+	buffer[12] = RemoteCmdOptions;
+	buffer[13] = (ATCommand >> 8) & 0xFF;
+	buffer[14] = (ATCommand & 0xFF);
+	for (int i = 0 ; i < sizeParams ; i++){
+		buffer[15+i] = param[i];
+	}
+	
+	FormatFrame(buffer, totalSize);
+	XBee_exitAtMode();
+	return 1;
+}
 /**
   * @brief  Envia ZigBee Transmit Request
   * @param  FrameID: valor FrameID
@@ -139,8 +240,7 @@ uint8_t XBee_ZigBeeTransmitRequest(uint8_t FrameID, uint8_t * Dest64, uint8_t * 
 		buffer[14+i] = RFData[i];
 	}
 	
-	Lib_SetUARTOutBufBytes(buffer, totalSize);
-	Lib_UART_Transmit_wRetry_IT(&huart2);
+	FormatFrame(buffer, totalSize);
 	return 1;
 }
 

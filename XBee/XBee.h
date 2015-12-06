@@ -3,8 +3,20 @@
 
 extern UART_HandleTypeDef huart2;
 
+#define RemoteATComandRequest				0x17
+
 #define Cmd_DB	0x4442
 
+typedef struct
+{
+  uint8_t FrameId;
+	uint8_t	Addr64[8];
+	uint16_t	Addr16;
+  uint16_t ATCommand;
+	uint8_t status;	//0x00 - OK
+  uint8_t Params[100];
+	uint8_t SizeParams;
+} S_XBee_RemoteATResponse;
 
 typedef struct
 {
@@ -30,6 +42,8 @@ typedef struct
 
 
 S_XBee_ATResponse * XBee_AtResponse(uint8_t * frame , uint8_t size);
+
+S_XBee_RemoteATResponse * XBee_RemoteAtResponse(uint8_t * frame , uint8_t size);
 
 S_XBee_ZigbeeExplicitRXIndicator * XBee_ZigbeeExpRXInd (uint8_t * frame, uint8_t size);
 

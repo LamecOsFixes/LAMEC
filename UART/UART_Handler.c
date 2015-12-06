@@ -142,7 +142,7 @@ void Lib_SetUARTOutBufBytes(unsigned char *msg, char numbytes)
   * @param  huart: apontador para estrutura UART_HandleTypeDef que tem informaçao sobre as 
 	*                configuraçoes do modulo de UART
   * @param  data: apontador para buffer de informaçao a enviar
-  * @param  Size: tamanho de informaçºao a enviar
+  * @param  Size: tamanho de informação a enviar
   * @retval HAL status (HAL_OK , HAL_ERROR , HAL_BUSY)
   */
 void Lib_UART_Receive_IT (uint8_t * data, uint8_t size)
