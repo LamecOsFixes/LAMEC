@@ -68,10 +68,10 @@ S_XBee_RemoteATResponse * XBee_RemoteAtResponse(uint8_t * frame , uint8_t size)
 		RemoteATResponse.Addr16 = ((frame[9]<<8) | frame[10]);
 		RemoteATResponse.ATCommand = ((frame[11]<<8) | frame[12]);
 		RemoteATResponse.status = frame[13];
-		RemoteATResponse.SizeParams = size - 14;
+		RemoteATResponse.SizeParams = size - 15;
 		
 		for (int i = 0 ; i < RemoteATResponse.SizeParams ; i++){
-			ATResp.Params[i] = frame[i+14];
+			RemoteATResponse.Params[i] = frame[i+14];
 		}
 		
 		return &RemoteATResponse;
@@ -185,9 +185,9 @@ uint8_t XBee_AtCommand(uint8_t FrameID, uint16_t ATCommand, uint8_t * param , ui
 uint8_t XBee_RemoteAtCommand(uint8_t FrameID, uint8_t * Addr64, uint16_t Addr16, uint8_t RemoteCmdOptions ,uint16_t ATCommand, uint8_t * param , uint8_t sizeParams){
 	uint8_t buffer[128];
 	
-	XBee_enterAtMode();
+//	XBee_enterAtMode();
 	
-	uint16_t totalSize = sizeParams + 14; 
+	uint16_t totalSize = sizeParams + 15; 
 	
 	buffer[0] = RemoteATComandRequest;
 	buffer[1] = FrameID;
@@ -204,7 +204,7 @@ uint8_t XBee_RemoteAtCommand(uint8_t FrameID, uint8_t * Addr64, uint16_t Addr16,
 	}
 	
 	FormatFrame(buffer, totalSize);
-	XBee_exitAtMode();
+	//XBee_exitAtMode();
 	return 1;
 }
 /**

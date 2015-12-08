@@ -43,6 +43,8 @@ typedef struct
 
 S_XBee_ATResponse * XBee_AtResponse(uint8_t * frame , uint8_t size);
 
+uint8_t XBee_RemoteAtCommand(uint8_t FrameID, uint8_t * Addr64, uint16_t Addr16, uint8_t RemoteCmdOptions ,uint16_t ATCommand, uint8_t * param , uint8_t sizeParams);
+
 S_XBee_RemoteATResponse * XBee_RemoteAtResponse(uint8_t * frame , uint8_t size);
 
 S_XBee_ZigbeeExplicitRXIndicator * XBee_ZigbeeExpRXInd (uint8_t * frame, uint8_t size);

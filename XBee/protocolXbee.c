@@ -1,7 +1,5 @@
 #include "protocolXbee.h"
 
-
-
 uint32_t	MyGlobalTime=0;
 uint8_t		RssiValue=0;
 
@@ -174,7 +172,7 @@ void Analyse_Frame(S_Protocol_Machine *Protocol_Motor)
 				if(xbeeRemoteAtResp->ATCommand == Cmd_DB){
 						for(int i=0; i<8 ; i++) //write source MAC of remote device
 						{
-							bufferParams[i] = zigBeeRx->SrcAddr64[i];
+							bufferParams[i] = xbeeRemoteAtResp->Addr64[i];
 						}
 						bufferParams[8] = xbeeRemoteAtResp->Params[0];	//write RSSI value
 					 for(int i=0;i<8;i++){

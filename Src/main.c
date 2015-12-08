@@ -35,15 +35,11 @@
 //#define COORDINATOR
 //PD12 13 14 15
 #include "stm32f4xx_hal.h"
-//#include "UART_Handler.h"
-//#include "XBee.h"
 #include "protocolXbee.h"
-
 
 #ifdef COORDINATOR
 	#include "usb_device.h"
 #endif
-
 
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart1;
@@ -135,19 +131,14 @@ void MX_TIM3_Init(void){
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-//	uint8_t bufferMAC[8], bufferDst16[2];
-//	for(int i=0; i<8;i++){
-//		bufferMAC[i]=0x00;
-//	}
-//	bufferDst16[0]=0xFF;
-//	bufferDst16[1]=0xFE;
-//	XBee_ZigBeeTransmitRequest(0x01, &bufferMAC[0], bufferDst16 , 0x00 , 0x00 , "teste", 6);
-	
-//	XBee_AtCommand(0x01, Cmd_DB, bufferMAC , 0);
-//	uint8_t send_char = 's';
-//	
-//	Lib_SetUARTOutBufBytes(&send_char, 1);
-//	Lib_UART_Transmit_wRetry_IT(&huart2);
+	uint8_t bufferMAC[8];//, bufferDst16[2];
+	for(int i=0; i<8;i++){
+		bufferMAC[i]=0x00;
+	}
+	bufferMAC[6]=0xFF;
+	bufferMAC[7]=0xFE;
+
+	XBee_RemoteAtCommand(0x01, &bufferMAC[0], 0xFFFE, 0x02 ,Cmd_DB, bufferMAC , 0x00);
 
 	HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_12);
 }
