@@ -9,7 +9,7 @@ typedef struct
   uint16_t		inbufLength;			//guarda tamanho da trama
 	uint16_t		inbufCommandNumbytesLeft;	//controla numero d bytes que falta ler para completara a trama
 	uint8_t			checksumVerify;
-  uint8_t 		inbufCommandIndex;		//apontador de posiçao do buffer
+  uint8_t 		inbufCommandIndex;		//apontador de posiï¿½ao do buffer
   uint8_t 		inbufCommandBuf[256];
 } S_Protocol_Machine;
 
@@ -27,7 +27,6 @@ S_XBee_RemoteATResponse * xbeeRemoteAtResp;
   * @brief  Reinicia estrutura com valores default
   * @param  *Protocol_Machine: Estrutura para reiniciar.
   * @return None
-	* @todo		TESTAR
   */
 void ResetStateMachine(S_Protocol_Machine * Protocol_Machine){
 		Protocol_Machine->checksumVerify=0;
@@ -52,8 +51,8 @@ void Run_Frame(void)
   
   if (Lib_GetUARTInBufByte(&tempbyte) != 0)
   {
-			if(Process_Frame(&Protocol_Machine, &tempbyte)){	//verifica se foi encontrada trama válida
-				Analyse_Frame(&Protocol_Machine);	//tratamento de trama válida
+			if(Process_Frame(&Protocol_Machine, &tempbyte)){	//verifica se foi encontrada trama vï¿½lida
+				Analyse_Frame(&Protocol_Machine);	//tratamento de trama vï¿½lida
 			}
   }		
 }
@@ -150,7 +149,7 @@ uint8_t Process_Frame(S_Protocol_Machine *Protocol_Machine, uint8_t *tempbyte)
 
 /**
   * @brief  Faz o tratamento da trama recebida
-  * @param  *Protocol_Motor: Estrutura preenchida com trama válida
+  * @param  *Protocol_Motor: Estrutura preenchida com trama vï¿½lida
   * @return 1 - sucesso ; 0 - erro
 	* @todo		TESTAR
   */
