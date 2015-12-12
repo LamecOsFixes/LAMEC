@@ -43,7 +43,7 @@ void ResetStateMachine(S_Protocol_Machine * Protocol_Machine){
 void Run_Frame(void)
 {
   uint8_t tempbyte;
-  if(HAL_GetTick() > MyGlobalTime + 500)
+  if(HAL_GetTick() > MyGlobalTime + 100)
   {
     ResetStateMachine(&Protocol_Machine);
     MyGlobalTime = HAL_GetTick();
@@ -151,7 +151,6 @@ uint8_t Process_Frame(S_Protocol_Machine *Protocol_Machine, uint8_t *tempbyte)
   * @brief  Faz o tratamento da trama recebida
   * @param  *Protocol_Motor: Estrutura preenchida com trama v�lida
   * @return 1 - sucesso ; 0 - erro
-	* @todo		TESTAR
   */
 void Analyse_Frame(S_Protocol_Machine *Protocol_Motor)
 {
@@ -165,23 +164,23 @@ void Analyse_Frame(S_Protocol_Machine *Protocol_Motor)
   //XBee_AtCommand(0x01,Cmd_DB,bufferParams,0);
   switch(TypeOper)
   {
-		case RemoteATComandResponse:
-			xbeeRemoteAtResp = XBee_RemoteAtResponse(&(Protocol_Motor->inbufCommandBuf[1]), Protocol_Motor->inbufLength);
-			if(xbeeRemoteAtResp->status == 0x00){	//0x00 - OK
-				if(xbeeRemoteAtResp->ATCommand == Cmd_DB){
-						for(int i=0; i<8 ; i++) //write source MAC of remote device
-						{
-							bufferParams[i] = xbeeRemoteAtResp->Addr64[i];
-						}
-						bufferParams[8] = xbeeRemoteAtResp->Params[0];	//write RSSI value
-					 for(int i=0;i<8;i++){
-						bufferMAC[i]=0;
-					 }
-					 XBee_ZigBeeTransmitRequest(0x01,bufferMAC,0x0000,0x00,0x00,bufferParams,10);
+	case RemoteATComandResponse:
+		xbeeRemoteAtResp = XBee_RemoteAtResponse(&(Protocol_Motor->inbufCommandBuf[1]), Protocol_Motor->inbufLength);
+		if(xbeeRemoteAtResp->status == 0x00){	//0x00 - OK
+			if(xbeeRemoteAtResp->ATCommand == Cmd_DB){
+					for(int i=0; i<8 ; i++) //write source MAC of remote device
+					{
+						bufferParams[i] = xbeeRemoteAtResp->Addr64[i];
+					}
+					bufferParams[8] = xbeeRemoteAtResp->Params[0];	//write RSSI value
+					for(int i=0;i<8;i++){
+					bufferMAC[i]=0;
+					}
+					XBee_ZigBeeTransmitRequest(0x01,bufferMAC,0x0000,0x00,0x00,bufferParams,10);
 
-				}
 			}
-			break;
+		}
+		break;
 		
 //  case AT_RESPONSE:
 //     xbeeAtResp = XBee_AtResponse(&(Protocol_Motor->inbufCommandBuf[1]) , Protocol_Motor->inbufLength);
