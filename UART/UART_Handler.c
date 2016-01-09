@@ -186,11 +186,15 @@ HAL_StatusTypeDef Lib_UART_Transmit_IT(UART_HandleTypeDef *huart, uint8_t * data
   */
 uint8_t Lib_UART_Transmit_wRetry_IT(UART_HandleTypeDef *huart)
 {
+	uint32_t timout=0;
 	uint8_t send_char = 0x00;
 	while(Lib_GetUARTOutBufByte(&send_char)){	//enquanto houver caracteres para transmitir
-		
+		timout=HAL_GetTick();
 			while(Lib_UART_Transmit_IT(huart,&send_char,1)!=HAL_OK)	//tenta enviar ate conseguir
 			{
+				if(HAL_GetTick()>(timout+20)){
+					return 0;
+				}
 			}
 	}
 	return 1;

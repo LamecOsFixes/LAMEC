@@ -266,7 +266,7 @@ uint8_t FormatFrame(uint8_t * data, uint16_t size){
 	}
 	checksum = (0xFF - checksum);
 	
-	buffer [3+size] = checksum & 0xFF;
+	buffer[3+size] = checksum & 0xFF;
 	
 	Lib_SetUARTOutBufBytes(buffer, totalSize);
 	Lib_UART_Transmit_wRetry_IT(&huart2);

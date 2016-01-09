@@ -43,7 +43,7 @@ void ResetStateMachine(S_Protocol_Machine * Protocol_Machine){
 void Run_Frame(void)
 {
   uint8_t tempbyte;
-  if(HAL_GetTick() > MyGlobalTime + 100)
+  if(HAL_GetTick() > MyGlobalTime + 2000)
   {
     ResetStateMachine(&Protocol_Machine);
     MyGlobalTime = HAL_GetTick();
@@ -90,10 +90,10 @@ uint8_t Process_Frame(S_Protocol_Machine *Protocol_Machine, uint8_t *tempbyte)
 	case 2:																							
 				Protocol_Machine->inbufLength |= (*tempbyte & 0xFF);// Size MSB+LSB
  
-				if(Protocol_Machine->inbufLength > 256)
+				if(Protocol_Machine->inbufLength > 30)
 					{
-//						ResetStateMachine(Protocol_Machine);
-//						break;
+						ResetStateMachine(Protocol_Machine);
+						break;
 					}
 				Protocol_Machine->inbufCommandNumbytesLeft = Protocol_Machine->inbufLength;
 				Protocol_Machine->inbufCommandState++;
@@ -113,28 +113,28 @@ uint8_t Process_Frame(S_Protocol_Machine *Protocol_Machine, uint8_t *tempbyte)
 				 
 	case 4:
 		
-				if (Protocol_Machine->checksumVerify + *tempbyte == 0xFF) {
+				//if (Protocol_Machine->checksumVerify + *tempbyte == 0xFF) {
 					ok = 1;
-				}else {
-					ResetStateMachine(Protocol_Machine);
-				}
+//				}else {
+//					ResetStateMachine(Protocol_Machine);
+//				}
 				break;
 				
-	case 5:
-				if (*tempbyte == 0x4B) {
-					Protocol_Machine->inbufCommandState++;
-				}else {
-					ResetStateMachine(Protocol_Machine);
-				}
-				break;
-	
-	case 6:
-			 if (*tempbyte == 0x0D) {
-					ok = 2;
-				}else {
-					ResetStateMachine(Protocol_Machine);
-				}
-				break;
+//	case 5:
+//				if (*tempbyte == 0x4B) {
+//					Protocol_Machine->inbufCommandState++;
+//				}else {
+//					ResetStateMachine(Protocol_Machine);
+//				}
+//				break;
+//	
+//	case 6:
+//			 if (*tempbyte == 0x0D) {
+//					ok = 2;
+//				}else {
+//					ResetStateMachine(Protocol_Machine);
+//				}
+//				break;
 	
 	default:
 				ResetStateMachine(Protocol_Machine); 

@@ -59,7 +59,7 @@ static void MX_TIM3_Init(void);
 uint8_t buffer_cnt;
 uint8_t bufferRec[250];
 
-uint8_t tim_mult=20;	//100ms x tim_mult
+uint8_t tim_mult=15;	//100ms x tim_mult
 
 int main(void)
 {
