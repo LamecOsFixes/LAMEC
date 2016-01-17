@@ -19,6 +19,8 @@
 "f4_lamec_xbee configuration\stm32f4xx_hal_flash_ramfunc.o"
 "f4_lamec_xbee configuration\stm32f4xx_hal_dma.o"
 "f4_lamec_xbee configuration\stm32f4xx_hal.o"
+"f4_lamec_xbee configuration\stm32f4xx_hal_tim.o"
+"f4_lamec_xbee configuration\stm32f4xx_hal_tim_ex.o"
 "f4_lamec_xbee configuration\usb_device.o"
 "f4_lamec_xbee configuration\main.o"
 "f4_lamec_xbee configuration\usbd_desc.o"
@@ -30,6 +32,7 @@
 "f4_lamec_xbee configuration\system_stm32f4xx.o"
 "f4_lamec_xbee configuration\uart_handler.o"
 "f4_lamec_xbee configuration\xbee.o"
+"f4_lamec_xbee configuration\protocolxbee.o"
 --library_type=microlib --strict --scatter "F4_LAMEC_XBEE Configuration\F4_LAMEC_XBEE Configuration.sct"
 --diag_suppress=L6329 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
